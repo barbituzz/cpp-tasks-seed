@@ -7,23 +7,23 @@
 
 namespace
 {
-    const char *BASE85_ALPHABET =
-        "0123456789"
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        "abcdefghijklmnopqrstuvwxyz"
-        "!#$%&()*+-;<=>?@^_`{|}~";
+const char *BASE85_ALPHABET =
+    "0123456789"
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    "abcdefghijklmnopqrstuvwxyz"
+    "!#$%&()*+-;<=>?@^_`{|}~";
 
-    int char_to_value(uint8_t c)
+int char_to_value(uint8_t c)
+{
+    for (int i = 0; i < 85; ++i)
     {
-        for (int i = 0; i < 85; ++i)
+        if (static_cast<uint8_t>(BASE85_ALPHABET[i]) == c)
         {
-            if (static_cast<uint8_t>(BASE85_ALPHABET[i]) == c)
-            {
-                return i;
-            }
+            return i;
         }
-        return -1;
     }
+    return -1;
+}
 } // namespace
 
 std::vector<uint8_t> base85::encode(std::vector<uint8_t> const &bytes)
